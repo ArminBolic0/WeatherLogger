@@ -7,6 +7,7 @@ bin/
 obj/
 Debug/
 Release/
+TestResults/
 
 ## User-specific files
 *.user
@@ -25,6 +26,9 @@ Release/
 _ReSharper*/
 *.DotSettings.user
 
+## DotCover
+*.dotCover
+
 ## Npm / Node for frontend
 node_modules/
 dist/
@@ -33,8 +37,13 @@ wwwroot/
 ## Logs
 *.log
 *.tlog/
+*.vsmdi
+*.cache
+*.pidb
+*.pdb
+*.wsuo
 
-## EF Migrations
+## EF Migrations snapshots
 *.Snapshot.cs
 
 ## Database / local files
@@ -51,7 +60,29 @@ project.lock.json
 project.fragment.lock.json
 artifacts/
 
-## Others
+## Dotnet test / coverage / temp
+TestResults/
+*.coverage
+*.coveragexml
+*.trx
 *.vsix
-*.vscode-test/
+*.njsproj.user
+
+## Environment / secrets
 .env
+appsettings.*.json
+
+## Other caches
+*.vs/
+*.vscode-test/
+*.dtbCache.v2
+*.cache.v2
+*.dotnet/
+
+# ==============================
+# Angular / Frontend
+# ==============================
+angular.json
+package-lock.json
+yarn.lock
+npm-debug.log
