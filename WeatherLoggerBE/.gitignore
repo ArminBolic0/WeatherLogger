@@ -1,0 +1,57 @@
+# ==============================
+# Visual Studio / .NET
+# ==============================
+
+## Build Folders
+bin/
+obj/
+Debug/
+Release/
+
+## User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Rider / JetBrains
+.idea/
+*.iml
+
+## VS Code
+.vscode/
+
+## Resharper
+_ReSharper*/
+*.DotSettings.user
+
+## Npm / Node for frontend
+node_modules/
+dist/
+wwwroot/
+
+## Logs
+*.log
+*.tlog/
+
+## EF Migrations
+*.Snapshot.cs
+
+## Database / local files
+*.mdf
+*.ldf
+*.sqlite
+*.db
+
+## NuGet
+*.nupkg
+packages/
+.nuget/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+## Others
+*.vsix
+*.vscode-test/
+.env
