@@ -1,10 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Logger</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-$END$
+<div id="weatherApp">
+    <header>
+        <h1>Weather Logger 🌤️</h1>
+        <div class="search-bar">
+            <input type="text" id="cityInput" placeholder="Enter city name...">
+            <button id="searchBtn">Add City</button>
+        </div>
+        <div class="controls">
+            <button id="toggleUnit">°C / °F</button>
+            <button id="sortTemp">Sort by Temp</button>
+            <button id="sortHumidity">Sort by Humidity</button>
+        </div>
+    </header>
+
+    <main>
+        <div id="weatherCards" class="cards-container"></div>
+    </main>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

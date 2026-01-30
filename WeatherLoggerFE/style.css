@@ -1,0 +1,191 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(to bottom, #87ceeb, #f0f8ff);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+#weatherApp {
+    width: 100%;
+    max-width: 1200px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.search-bar input {
+    padding: 10px;
+    width: 250px;
+    border-radius: 8px 0 0 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+.search-bar button {
+    padding: 10px 15px;
+    border-radius: 0 8px 8px 0;
+    border: none;
+    background-color: #4d79ff;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.search-bar button:hover {
+    background-color: #3a5edc;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.controls button {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: none;
+    background-color: #ffd93d;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.controls button:hover {
+    background-color: #ffca1d;
+}
+
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.weather-card {
+    width: 250px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    background: linear-gradient(to bottom, #fff, #f0f0f0);
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    position: relative;
+    color: #333;
+    overflow: hidden; /* ensure buttons don’t overflow */
+}
+
+.weather-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+}
+
+.weather-card h2 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.weather-card .temperature {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.weather-card p {
+    margin: 4px 0;
+}
+
+.weather-card button {
+    position: absolute;
+    top: 10px;
+    padding: 5px 8px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: white;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.card-buttons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 5px;
+}
+
+.card-buttons button {
+    padding: 5px 8px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: white;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.card-refresh-btn {
+    right: 10px;
+    background-color: #4d79ff;
+}
+
+.card-refresh-btn:hover {
+    background-color: #3a5edc;
+}
+
+.card-delete-btn {
+    right: 60px;
+    background-color: #ff4d4d;
+}
+
+.card-delete-btn:hover {
+    background-color: #e60000;
+}
+
+/* Weather-dependent backgrounds */
+.weather-sunny {
+    background: linear-gradient(to bottom, #ffe47a, #ffd93d);
+}
+
+.weather-rain {
+    background: linear-gradient(to bottom, #74b9ff, #4d79ff);
+    color: white;
+}
+
+.weather-cloudy {
+    background: linear-gradient(to bottom, #d3d3d3, #a9a9a9);
+}
+
+.weather-snow {
+    background: linear-gradient(to bottom, #e0f7fa, #b3e5fc);
+}
+
+.weather-thunderstorm {
+    background: linear-gradient(to bottom, #808080, #333);
+    color: white;
+}
