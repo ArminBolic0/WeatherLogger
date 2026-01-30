@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WeatherLogger.Domain\WeatherLogger.Domain.csproj" />
+    <ProjectReference Include="..\WeatherLogger.Infrastructure\WeatherLogger.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
