@@ -52,3 +52,12 @@ Open your browser and navigate to:
 
 https://localhost:7193/index.html
 Do not open files directly from wwwroot. The backend serves the JS modules, API endpoints, and static files.
+
+<img width="2556" height="1252" alt="Screenshot_9" src="https://github.com/user-attachments/assets/ae04adf9-b04f-4a96-b244-3372ce9ca562" />
+<img width="2551" height="1230" alt="Screenshot_3" src="https://github.com/user-attachments/assets/30070aeb-d9a1-4ac3-8798-f7d3e6b359d6" />
+<img width="2524" height="1232" alt="Screenshot_2" src="https://github.com/user-attachments/assets/af3e538d-dc47-47b0-853e-f01632b43043" />
+<img width="2534" height="1243" alt="Screenshot_1" src="https://github.com/user-attachments/assets/3bbc0684-d1fb-48a2-8f1f-b3dcf4fc5fb2" />
+
+
+
+
