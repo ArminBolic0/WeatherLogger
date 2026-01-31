@@ -52,12 +52,11 @@ Open your browser and navigate to:
 
 https://localhost:7193/index.html
 Do not open files directly from wwwroot. The backend serves the JS modules, API endpoints, and static files.
-
-<img width="2556" height="1252" alt="Screenshot_9" src="https://github.com/user-attachments/assets/ae04adf9-b04f-4a96-b244-3372ce9ca562" />
-<img width="2551" height="1230" alt="Screenshot_3" src="https://github.com/user-attachments/assets/30070aeb-d9a1-4ac3-8798-f7d3e6b359d6" />
-<img width="2524" height="1232" alt="Screenshot_2" src="https://github.com/user-attachments/assets/af3e538d-dc47-47b0-853e-f01632b43043" />
-<img width="2534" height="1243" alt="Screenshot_1" src="https://github.com/user-attachments/assets/3bbc0684-d1fb-48a2-8f1f-b3dcf4fc5fb2" />
+```
 
 
-
+<img width="2556" height="1252" alt="Screenshot_9" src="https://github.com/user-attachments/assets/5fece8ce-9885-4d53-8128-ec6f3254fe65" />
+<img width="2534" height="1243" alt="Screenshot_1" src="https://github.com/user-attachments/assets/299d3e3c-0e22-4e80-b0a9-1bb3eb0a095c" />
+<img width="2551" height="1230" alt="Screenshot_3" src="https://github.com/user-attachments/assets/d5231ea2-2ae8-4ab5-beb8-f5c400262272" />
+<img width="2524" height="1232" alt="Screenshot_2" src="https://github.com/user-attachments/assets/09d35117-7e3f-475b-b697-c3a54938cf45" />
 
