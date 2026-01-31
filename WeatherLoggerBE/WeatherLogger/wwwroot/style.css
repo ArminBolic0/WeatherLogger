@@ -1,0 +1,207 @@
+* {
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    margin: 0;
+    background: #0f172a;
+}
+
+.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    background: linear-gradient(135deg, #0f172a, #020617);
+    color: white;
+}
+
+header {
+    text-align: center;
+    padding: 40px 20px 10px;
+}
+
+header h1 {
+    font-size: 2.5rem;
+}
+
+.search {
+    margin-top: 20px;
+}
+
+.search input {
+    padding: 12px;
+    width: 240px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+}
+
+.search button {
+    padding: 12px 18px;
+    margin-left: 8px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background: #38bdf8;
+    color: black;
+    font-weight: bold;
+}
+
+.cards-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+#weatherCards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    width: 100%;
+    max-width: 1200px;
+    padding: 40px 20px;
+}
+
+
+.weather-card {
+    width: 280px;
+    border-radius: 16px;
+    padding: 18px;
+    color: #020617;
+    position: relative;
+    cursor: grab;
+    transition: transform 0.25s, box-shadow 0.25s, outline 0.25s;
+    overflow: hidden;
+}
+
+.weather-card:hover {
+    transform: translateY(-6px);
+    outline: 3px solid rgba(255,255,255,0.9);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.card-actions button {
+    border: none;
+    padding: 6px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.refresh { background: #e0f2fe; }
+.delete { background: #fecaca; }
+
+.temperature {
+    font-size: 2.8rem;
+    margin: 12px 0;
+}
+
+.description {
+    font-weight: bold;
+}
+
+.meta {
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+
+.expand-btn {
+    text-align: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+.history {
+    margin-top: 12px;
+    display: none;
+    font-size: 0.85rem;
+}
+
+.history.open {
+    display: block;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+}
+.history-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #1e293b;
+    border-radius: 12px;
+    color: white;
+}
+
+.history-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.history-container li {
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+
+.sunny { background: #fde047; }
+.cloudy { background: #e5e7eb; }
+.rainy { background: #93c5fd; }
+.snowy { background: #e0f2fe; }
+.stormy { background: #c7d2fe; }
+.default { background: #d1fae5; }
+
+.game-nav-btn {
+    background: #ff9800;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.google-login-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: white;
+    color: #555;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.google-login-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+.google-login-btn:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+    transform: translateY(-2px);
+}
