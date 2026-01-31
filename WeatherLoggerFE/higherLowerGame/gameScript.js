@@ -77,7 +77,7 @@ async function makeGuess(isHigher) {
 
     scoreText.textContent = `Score: ${score}`;
 
-    // Move forward after reveal
+
     setTimeout(async () => {
         currentCity = {
             cityName: result.nextCity,
