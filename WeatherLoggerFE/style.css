@@ -1,191 +1,151 @@
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", sans-serif;
 }
 
 body {
-    background: linear-gradient(to bottom, #87ceeb, #f0f8ff);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 20px;
+    margin: 0;
+    background: #0f172a;
 }
 
-#weatherApp {
-    width: 100%;
-    max-width: 1200px;
+.app {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f172a, #020617);
+    transition: background 0.4s ease;
+    color: white;
 }
 
 header {
     text-align: center;
-    margin-bottom: 20px;
+    padding: 40px 20px 10px;
 }
 
 header h1 {
     font-size: 2.5rem;
-    margin-bottom: 10px;
 }
 
-.search-bar {
+.search {
+    margin-top: 20px;
+}
+
+.search input {
+    padding: 12px;
+    width: 240px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+}
+
+.search button {
+    padding: 12px 18px;
+    margin-left: 8px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    background: #38bdf8;
+    color: black;
+    font-weight: bold;
+}
+
+.cards-wrapper {
     display: flex;
     justify-content: center;
-    margin-bottom: 10px;
 }
 
-.search-bar input {
-    padding: 10px;
-    width: 250px;
-    border-radius: 8px 0 0 8px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-}
-
-.search-bar button {
-    padding: 10px 15px;
-    border-radius: 0 8px 8px 0;
-    border: none;
-    background-color: #4d79ff;
-    color: white;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s;
-}
-
-.search-bar button:hover {
-    background-color: #3a5edc;
-}
-
-.controls {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-.controls button {
-    padding: 8px 12px;
-    border-radius: 6px;
-    border: none;
-    background-color: #ffd93d;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s;
-}
-
-.controls button:hover {
-    background-color: #ffca1d;
-}
-
-.cards-container {
+#weatherCards {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
     justify-content: center;
+    gap: 24px;
+    width: 100%;
+    max-width: 1200px;
+    padding: 40px 20px;
 }
 
+/* ===== CARD ===== */
+
 .weather-card {
-    width: 250px;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-    background: linear-gradient(to bottom, #fff, #f0f0f0);
-    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    width: 280px;
+    border-radius: 16px;
+    padding: 18px;
+    color: #020617;
     position: relative;
-    color: #333;
-    overflow: hidden; /* ensure buttons don’t overflow */
+    cursor: grab;
+    transition: transform 0.25s, box-shadow 0.25s, outline 0.25s;
 }
 
 .weather-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+    transform: translateY(-6px);
+    outline: 3px solid rgba(255,255,255,0.9);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.35);
 }
 
-.weather-card h2 {
-    margin-bottom: 10px;
-    font-size: 1.5rem;
-}
-
-.weather-card .temperature {
-    font-size: 2rem;
-    margin-bottom: 10px;
-}
-
-.weather-card p {
-    margin: 4px 0;
-}
-
-.weather-card button {
-    position: absolute;
-    top: 10px;
-    padding: 5px 8px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    color: white;
-    font-weight: bold;
-    transition: background 0.3s;
-}
-
-.card-buttons {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+.card-header {
     display: flex;
-    gap: 5px;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.card-buttons button {
-    padding: 5px 8px;
-    border-radius: 6px;
+.card-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.card-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.card-actions button {
     border: none;
+    padding: 6px 8px;
+    border-radius: 6px;
     cursor: pointer;
     font-size: 0.9rem;
+}
+.game-nav-btn {
+    background: #ff9800;
     color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: transform 0.1s;
+}
+
+.game-nav-btn:hover {
+    transform: scale(1.05);
+}
+
+
+.refresh {
+    background: #e0f2fe;
+}
+
+.delete {
+    background: #fecaca;
+}
+
+.temperature {
+    font-size: 2.8rem;
+    margin: 12px 0;
+}
+
+.description {
     font-weight: bold;
-    transition: background 0.3s;
 }
 
-.card-refresh-btn {
-    right: 10px;
-    background-color: #4d79ff;
+.meta {
+    margin-top: 10px;
+    font-size: 0.9rem;
 }
 
-.card-refresh-btn:hover {
-    background-color: #3a5edc;
-}
-
-.card-delete-btn {
-    right: 60px;
-    background-color: #ff4d4d;
-}
-
-.card-delete-btn:hover {
-    background-color: #e60000;
-}
-
-/* Weather-dependent backgrounds */
-.weather-sunny {
-    background: linear-gradient(to bottom, #ffe47a, #ffd93d);
-}
-
-.weather-rain {
-    background: linear-gradient(to bottom, #74b9ff, #4d79ff);
-    color: white;
-}
-
-.weather-cloudy {
-    background: linear-gradient(to bottom, #d3d3d3, #a9a9a9);
-}
-
-.weather-snow {
-    background: linear-gradient(to bottom, #e0f7fa, #b3e5fc);
-}
-
-.weather-thunderstorm {
-    background: linear-gradient(to bottom, #808080, #333);
-    color: white;
-}
+/* Weather colors */
+.sunny { background: #fde047; }
+.cloudy { background: #e5e7eb; }
+.rainy { background: #93c5fd; }
+.snowy { background: #e0f2fe; }
+.stormy { background: #c7d2fe; }
+.default { background: #d1fae5; }

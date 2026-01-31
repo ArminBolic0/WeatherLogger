@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Higher Lower Weather Game</title>
+    <link rel="stylesheet" href="game.css">
+</head>
+<body>
+
+<h1>🌡️ Higher or Lower: Weather Game</h1>
+
+<div class="game-container">
+    <div>
+        <div class="city" id="currentCity">Loading...</div>
+        <div class="temperature" id="currentTemp">--°C</div>
+    </div>
+
+    <input type="text" id="nextCityInput" placeholder="Enter next city (e.g., London)" />
+
+    <div class="guess-buttons">
+        <button class="higher" id="higherBtn">Higher</button>
+        <button class="lower" id="lowerBtn">Lower</button>
+    </div>
+
+    <div class="result" id="resultText"></div>
+    <div class="score" id="scoreText">Score: 0</div>
+
+    <button class="reset" id="resetBtn">Reset Game</button>
+</div>
+
+<script src="gameScript.js"></script>
+</body>
+</html>

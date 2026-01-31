@@ -1,8 +1,6 @@
-﻿using WeatherLogger.Application.Services;
-
-namespace WeatherLogger.Application.DTOs
+﻿namespace WeatherLogger.Application.DTOs
 {
-    public class WeatherStackResponse
+    public class WeatherStackResponseDto
     {
         public Location? Location { get; set; }
         public Current? Current { get; set; }
