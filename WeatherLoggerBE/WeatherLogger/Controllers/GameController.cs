@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WeatherLogger.Application.DTOs;
-using WeatherLogger.Application.Services;
+using WeatherLogger.Application.Interfaces;
 using WeatherLogger.Domain.Entities.Log;
 using WeatherLogger.Infrastructure.Persistence;
 
@@ -10,10 +10,10 @@ namespace WeatherLogger.API.Controllers
     [Route("api/[controller]")]
     public class GameController : ControllerBase
     {
-        private readonly GameService _gameService;
+        private readonly IGameService _gameService;
         private readonly WeatherLoggerDbContext _context;
 
-        public GameController(GameService gameService, WeatherLoggerDbContext context)
+        public GameController(IGameService gameService, WeatherLoggerDbContext context)
         {
             _gameService = gameService;
             _context = context;

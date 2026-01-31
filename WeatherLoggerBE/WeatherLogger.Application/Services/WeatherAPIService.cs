@@ -1,13 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Json;
 using WeatherLogger.Application.DTOs;
+using WeatherLogger.Application.Interfaces;
 using WeatherLogger.Domain.Entities.User;
 using WeatherLogger.Domain.Entities.Weather;
 using WeatherLogger.Infrastructure.Persistence;
 
 namespace WeatherLogger.Application.Services
 {
-    public class WeatherService
+    public class WeatherService: IWeatherService
     {
         private readonly HttpClient _httpClient;
         private readonly WeatherLoggerDbContext _context;

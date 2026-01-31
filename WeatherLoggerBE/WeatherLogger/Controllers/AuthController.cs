@@ -11,7 +11,7 @@ public class AuthController : Controller
     {
         return Challenge(new AuthenticationProperties
         {
-            RedirectUri = "/"  // redirect to your main weather page after login
+            RedirectUri = "/"
         }, GoogleDefaults.AuthenticationScheme);
     }
 

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using WeatherLogger.Application.Services;
+using WeatherLogger.Application.Interfaces;
 using WeatherLogger.Domain.Entities.Log;
 using WeatherLogger.Infrastructure.Persistence;
 
@@ -8,10 +7,10 @@ using WeatherLogger.Infrastructure.Persistence;
 [Route("api/[controller]")]
 public class WeatherController : ControllerBase
 {
-    private readonly WeatherService _weatherService;
+    private readonly IWeatherService _weatherService;
     private readonly WeatherLoggerDbContext _context;
 
-    public WeatherController(WeatherService weatherService, WeatherLoggerDbContext context)
+    public WeatherController(IWeatherService weatherService, WeatherLoggerDbContext context)
     {
         _weatherService = weatherService;
         _context = context;
