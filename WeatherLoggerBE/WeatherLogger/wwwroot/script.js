@@ -182,6 +182,7 @@ function createCard(data) {
     weatherCards.prepend(card);
 }
 
+
 document.addEventListener("DOMContentLoaded", () => {
     showUserHistory(); 
 });

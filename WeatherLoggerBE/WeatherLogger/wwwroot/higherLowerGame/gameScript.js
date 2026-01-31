@@ -92,6 +92,7 @@ async function makeGuess(isHigher) {
     }, 1200);
 }
 
+
 higherBtn.addEventListener("click", () => makeGuess(true));
 lowerBtn.addEventListener("click", () => makeGuess(false));
 resetBtn.addEventListener("click", startGame);
