@@ -12,8 +12,8 @@ using WeatherLogger.Infrastructure.Persistence;
 namespace WeatherLogger.Infrastructure.Migrations
 {
     [DbContext(typeof(WeatherLoggerDbContext))]
-    [Migration("20260131031149_Migrations")]
-    partial class Migrations
+    [Migration("20260131131412_Migrations3101")]
+    partial class Migrations3101
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,6 +59,54 @@ namespace WeatherLogger.Infrastructure.Migrations
                     b.ToTable("ApiLogs");
                 });
 
+            modelBuilder.Entity("WeatherLogger.Domain.Entities.User.AppUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("GoogleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppUsers");
+                });
+
+            modelBuilder.Entity("WeatherLogger.Domain.Entities.User.UserCityHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CheckedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CityName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("UserCityHistories");
+                });
+
             modelBuilder.Entity("WeatherLogger.Domain.Entities.Weather.GameCityWeather", b =>
                 {
                     b.Property<int>("Id")
@@ -92,7 +140,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 12.0,
                             CityName = "Sarajevo",
                             CountryName = "BA",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7217)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3255)
                         },
                         new
                         {
@@ -100,7 +148,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 10.0,
                             CityName = "London",
                             CountryName = "UK",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7266)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3317)
                         },
                         new
                         {
@@ -108,7 +156,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 28.0,
                             CityName = "Cairo",
                             CountryName = "EG",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7269)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3319)
                         },
                         new
                         {
@@ -116,7 +164,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 4.0,
                             CityName = "Oslo",
                             CountryName = "NO",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7270)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3321)
                         },
                         new
                         {
@@ -124,7 +172,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 18.0,
                             CityName = "Madrid",
                             CountryName = "ES",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7272)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3323)
                         },
                         new
                         {
@@ -132,7 +180,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 12.0,
                             CityName = "Paris",
                             CountryName = "FR",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7276)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3327)
                         },
                         new
                         {
@@ -140,7 +188,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 10.0,
                             CityName = "Berlin",
                             CountryName = "DE",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7278)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3329)
                         },
                         new
                         {
@@ -148,7 +196,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 16.0,
                             CityName = "Rome",
                             CountryName = "IT",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7280)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3331)
                         },
                         new
                         {
@@ -156,7 +204,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 20.0,
                             CityName = "Athens",
                             CountryName = "GR",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7281)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3333)
                         },
                         new
                         {
@@ -164,7 +212,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 5.0,
                             CityName = "Moscow",
                             CountryName = "RU",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7284)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3336)
                         },
                         new
                         {
@@ -172,7 +220,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 15.0,
                             CityName = "Tokyo",
                             CountryName = "JP",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7286)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3338)
                         },
                         new
                         {
@@ -180,7 +228,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 22.0,
                             CityName = "Sydney",
                             CountryName = "AU",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7292)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3340)
                         },
                         new
                         {
@@ -188,7 +236,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 13.0,
                             CityName = "Beijing",
                             CountryName = "CN",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7294)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3342)
                         },
                         new
                         {
@@ -196,7 +244,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 12.0,
                             CityName = "New York",
                             CountryName = "US",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7296)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3344)
                         },
                         new
                         {
@@ -204,7 +252,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 19.0,
                             CityName = "Los Angeles",
                             CountryName = "US",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7298)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3345)
                         },
                         new
                         {
@@ -212,7 +260,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 7.0,
                             CityName = "Toronto",
                             CountryName = "CA",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7299)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3347)
                         },
                         new
                         {
@@ -220,7 +268,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 10.0,
                             CityName = "Vancouver",
                             CountryName = "CA",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7301)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3349)
                         },
                         new
                         {
@@ -228,7 +276,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 17.0,
                             CityName = "Mexico City",
                             CountryName = "MX",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7304)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3352)
                         },
                         new
                         {
@@ -236,7 +284,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 26.0,
                             CityName = "Rio de Janeiro",
                             CountryName = "BR",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7306)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3354)
                         },
                         new
                         {
@@ -244,7 +292,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 18.0,
                             CityName = "Buenos Aires",
                             CountryName = "AR",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7307)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3356)
                         },
                         new
                         {
@@ -252,7 +300,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 17.0,
                             CityName = "Cape Town",
                             CountryName = "ZA",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7309)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3358)
                         },
                         new
                         {
@@ -260,7 +308,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 16.0,
                             CityName = "Johannesburg",
                             CountryName = "ZA",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7311)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3359)
                         },
                         new
                         {
@@ -268,7 +316,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 15.0,
                             CityName = "Istanbul",
                             CountryName = "TR",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7313)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3361)
                         },
                         new
                         {
@@ -276,7 +324,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 30.0,
                             CityName = "Dubai",
                             CountryName = "AE",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7314)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3363)
                         },
                         new
                         {
@@ -284,7 +332,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 28.0,
                             CityName = "Singapore",
                             CountryName = "SG",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7316)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3365)
                         },
                         new
                         {
@@ -292,7 +340,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 29.0,
                             CityName = "Bangkok",
                             CountryName = "TH",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7318)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3367)
                         },
                         new
                         {
@@ -300,7 +348,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 25.0,
                             CityName = "Delhi",
                             CountryName = "IN",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7320)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3369)
                         },
                         new
                         {
@@ -308,7 +356,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 13.0,
                             CityName = "Seoul",
                             CountryName = "KR",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7321)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3371)
                         },
                         new
                         {
@@ -316,7 +364,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 3.0,
                             CityName = "Helsinki",
                             CountryName = "FI",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7323)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3373)
                         },
                         new
                         {
@@ -324,7 +372,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 5.0,
                             CityName = "Stockholm",
                             CountryName = "SE",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7325)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3375)
                         },
                         new
                         {
@@ -332,7 +380,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 8.0,
                             CityName = "Warsaw",
                             CountryName = "PL",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7327)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3376)
                         },
                         new
                         {
@@ -340,7 +388,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 16.0,
                             CityName = "Lisbon",
                             CountryName = "PT",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7328)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3378)
                         },
                         new
                         {
@@ -348,7 +396,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 11.0,
                             CityName = "Budapest",
                             CountryName = "HU",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7330)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3380)
                         },
                         new
                         {
@@ -356,7 +404,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 9.0,
                             CityName = "Prague",
                             CountryName = "CZ",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7333)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3383)
                         },
                         new
                         {
@@ -364,7 +412,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 28.0,
                             CityName = "Kuala Lumpur",
                             CountryName = "MY",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7335)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3385)
                         },
                         new
                         {
@@ -372,7 +420,7 @@ namespace WeatherLogger.Infrastructure.Migrations
                             AverageTemperatureCelsius = 27.0,
                             CityName = "Lagos",
                             CountryName = "NG",
-                            CreatedAt = new DateTime(2026, 1, 31, 4, 11, 48, 630, DateTimeKind.Local).AddTicks(7336)
+                            CreatedAt = new DateTime(2026, 1, 31, 14, 14, 12, 462, DateTimeKind.Local).AddTicks(3387)
                         });
                 });
 
@@ -444,6 +492,22 @@ namespace WeatherLogger.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("WeatherRecordHistory");
+                });
+
+            modelBuilder.Entity("WeatherLogger.Domain.Entities.User.UserCityHistory", b =>
+                {
+                    b.HasOne("WeatherLogger.Domain.Entities.User.AppUser", "AppUser")
+                        .WithMany("CityHistories")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("WeatherLogger.Domain.Entities.User.AppUser", b =>
+                {
+                    b.Navigation("CityHistories");
                 });
 #pragma warning restore 612, 618
         }

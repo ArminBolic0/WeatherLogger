@@ -4,11 +4,13 @@
     <meta charset="UTF-8" />
     <title>Weather Logger</title>
     <link rel="stylesheet" href="style.css" />
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
 
 <div class="app" id="app">
     <header>
+        <button id="loginBtn">Login with Google</button>
         <h1>🌤 Weather Logger</h1>
         <p>Track, refresh & compare weather by city</p>
         <button id="gameBtn" class="game-nav-btn">🎮 Play Higher/Lower Game</button>
@@ -22,6 +24,19 @@
     <div class="cards-wrapper">
         <div id="weatherCards"></div>
     </div>
+
+    <div id="userHistory" class="history-container">
+        <h3>Your Checked Cities</h3>
+        <ul id="historyList"></ul>
+    </div>
+
+    <div id="g_id_onload"
+         data-client_id="48973516361-eru3cu3tvnvv2sfi4kjkit2jc9g5avm2.apps.googleusercontent.com"
+         data-context="signin"
+         data-ux_mode="popup"
+         data-callback="handleCredentialResponse">
+    </div>
+    <div class="g_id_signin" data-type="standard"></div>
 </div>
 
 <script src="script.js"></script>

@@ -20,10 +20,13 @@ public class WeatherController : ControllerBase
     [HttpGet("{city?}")]
     public async Task<IActionResult> GetWeather(string? city, CancellationToken cancellationToken)
     {
-        var record = await _weatherService.GetCurrentWeather(city, cancellationToken);
+        var googleId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+        var record = await _weatherService.GetCurrentWeather(city, googleId, cancellationToken);
 
         if (record == null)
-            return NotFound();
+        {
+            record = await _weatherService.GetWeatherAndSaveAsync(city, googleId, cancellationToken);
+        }
 
         return Ok(record);
     }
@@ -33,6 +36,7 @@ public class WeatherController : ControllerBase
     {
         if (string.IsNullOrWhiteSpace(city))
             return BadRequest("City name is required.");
+
 
         var history = await _weatherService.GetCityWeatherHistory(city, count, cancellationToken);
         if (history == null) return NotFound();
@@ -44,7 +48,9 @@ public class WeatherController : ControllerBase
     [HttpPost("refresh/{city?}")]
     public async Task<IActionResult> RefreshWeather(string? city, CancellationToken cancellationToken)
     {
-        var record = await _weatherService.GetWeatherAndSaveAsync(city ?? "Sarajevo", cancellationToken);
+        var googleId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+        var record = await _weatherService.GetWeatherAndSaveAsync(city ?? "Sarajevo", googleId, cancellationToken);
 
         var log = new ApiLog
         {
@@ -59,5 +65,18 @@ public class WeatherController : ControllerBase
         await _context.SaveChangesAsync();
 
         return Ok(record);
+    }
+
+    [HttpGet("user/history")]
+    public async Task<IActionResult> GetUserHistory(CancellationToken cancellationToken)
+    {
+        var googleId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+        var historyDto = await _weatherService.GetUserCityHistoryDtoAsync(googleId, cancellationToken);
+
+        if (historyDto == null || !historyDto.Histories.Any())
+            return NotFound();
+
+        return Ok(historyDto);
     }
 }

@@ -72,6 +72,7 @@ header h1 {
     position: relative;
     cursor: grab;
     transition: transform 0.25s, box-shadow 0.25s, outline 0.25s;
+    overflow: hidden;
 }
 
 .weather-card:hover {
@@ -86,11 +87,6 @@ header h1 {
     align-items: center;
 }
 
-.card-header h2 {
-    margin: 0;
-    font-size: 1.2rem;
-}
-
 .card-actions {
     display: flex;
     gap: 6px;
@@ -101,32 +97,10 @@ header h1 {
     padding: 6px 8px;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 0.9rem;
-}
-.game-nav-btn {
-    background: #ff9800;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    margin: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: transform 0.1s;
 }
 
-.game-nav-btn:hover {
-    transform: scale(1.05);
-}
-
-
-.refresh {
-    background: #e0f2fe;
-}
-
-.delete {
-    background: #fecaca;
-}
+.refresh { background: #e0f2fe; }
+.delete { background: #fecaca; }
 
 .temperature {
     font-size: 2.8rem;
@@ -142,6 +116,51 @@ header h1 {
     font-size: 0.9rem;
 }
 
+/* ===== HISTORY ===== */
+
+.expand-btn {
+    text-align: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+.history {
+    margin-top: 12px;
+    display: none;
+    font-size: 0.85rem;
+}
+
+.history.open {
+    display: block;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+}
+.history-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #1e293b;
+    border-radius: 12px;
+    color: white;
+}
+
+.history-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.history-container li {
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+
 /* Weather colors */
 .sunny { background: #fde047; }
 .cloudy { background: #e5e7eb; }
@@ -149,3 +168,42 @@ header h1 {
 .snowy { background: #e0f2fe; }
 .stormy { background: #c7d2fe; }
 .default { background: #d1fae5; }
+
+.game-nav-btn {
+    background: #ff9800;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.google-login-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: white;
+    color: #555;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.google-login-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+.google-login-btn:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+    transform: translateY(-2px);
+}
+
+
