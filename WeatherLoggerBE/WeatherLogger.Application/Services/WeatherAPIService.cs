@@ -11,7 +11,7 @@ namespace WeatherLogger.Application.Services
     {
         private readonly HttpClient _httpClient;
         private readonly WeatherLoggerDbContext _context;
-        private readonly string _apiKey = "69457ea1cf6f6e6279631139671e2715";
+        private readonly string _apiKey = "--";
 
         public WeatherService(HttpClient httpClient, WeatherLoggerDbContext context)
         {
