@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using WeatherLogger.Application.Interfaces;
 using WeatherLogger.Application.Services;
 
 namespace WeatherLogger.Application.DependencyInjection
@@ -7,8 +8,8 @@ namespace WeatherLogger.Application.DependencyInjection
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            services.AddScoped<WeatherService>();
-            services.AddScoped<GameService>();
+            services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IWeatherService, WeatherService>();
 
             return services;
         }

@@ -2,10 +2,11 @@
 using WeatherLogger.Domain.Entities.Weather;
 using WeatherLogger.Infrastructure.Persistence;
 using WeatherLogger.Application.DTOs;
+using WeatherLogger.Application.Interfaces;
 
 namespace WeatherLogger.Application.Services
 {
-    public class GameService
+    public class GameService: IGameService
     {
         private readonly WeatherLoggerDbContext _context;
         private readonly Random _random;
