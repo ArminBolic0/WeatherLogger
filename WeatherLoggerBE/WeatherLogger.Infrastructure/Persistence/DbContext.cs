@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WeatherLogger.Domain.Entities.Log;
+using WeatherLogger.Domain.Entities.User;
 using WeatherLogger.Domain.Entities.Weather;
 using WeatherLogger.Infrastructure.Persistence.SeedData;
 
@@ -17,6 +18,8 @@ namespace WeatherLogger.Infrastructure.Persistence
         public DbSet<WeatherRecordHistory> WeatherRecordHistory { get; set; } = null!;
         public DbSet<ApiLog> ApiLogs { get; set; } = null!;
         public DbSet<GameCityWeather> GameCityWeathers { get; set; } = null!;
+        public DbSet<AppUser> AppUsers { get; set; } = null!;
+        public DbSet<UserCityHistory> UserCityHistories { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

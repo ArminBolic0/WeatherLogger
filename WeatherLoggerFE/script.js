@@ -7,7 +7,6 @@ let draggedCard = null;
 
 function getWeatherClass(desc = "") {
     desc = desc.toLowerCase();
-
     if (desc.includes("sun") || desc.includes("clear")) return "sunny";
     if (desc.includes("cloud")) return "cloudy";
     if (desc.includes("rain")) return "rainy";
@@ -20,8 +19,9 @@ searchBtn.addEventListener("click", () => addCity());
 cityInput.addEventListener("keyup", e => {
     if (e.key === "Enter") addCity();
 });
+
 document.getElementById("gameBtn").addEventListener("click", () => {
-    window.location.href = "higherLowerGame/game.html";
+    window.location.href = "/higherLowerGame/game.html";
 });
 
 async function addCity() {
@@ -49,17 +49,80 @@ async function fetchPOST(city) {
     const res = await fetch(`https://localhost:7193/api/weather/refresh/${city}`, {
         method: "POST"
     });
-    if (!res.ok) throw new Error("Refresh failed");
+    if (!res.ok) throw new Error();
     return res.json();
 }
+
+async function fetchHistory(city) {
+    const res = await fetch(
+        `https://localhost:7193/api/weather/history/${city}?count=10`
+    );
+    if (!res.ok) throw new Error();
+    return res.json();
+}
+
+async function fetchUserHistory() {
+    try {
+        const res = await fetch(`https://localhost:7193/api/weather/user/history`, {
+            credentials: "include"
+        });
+        if (!res.ok) return [];
+        return await res.json();
+    } catch {
+        return [];
+    }
+}
+
+async function showUserHistory() {
+    const history = await fetchUserHistory();
+    const listEl = document.getElementById("historyList");
+    listEl.innerHTML = "";
+
+    if (!history.length) {
+        listEl.innerHTML = "<li>No history yet.</li>";
+        return;
+    }
+
+    history.forEach(h => {
+        const li = document.createElement("li");
+        li.textContent = `${h.cityName} - ${new Date(h.checkedAt).toLocaleString()}`;
+        listEl.appendChild(li);
+    });
+}
+
+document.getElementById("loginBtn").addEventListener("click", () => {
+    window.location.href = "/auth/login";
+});
+
+
+showUserHistory();
+
+function handleCredentialResponse(response) {
+    console.log("Google ID token:", response.credential);
+
+    fetch("https://localhost:7193/signin-google", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idToken: response.credential }),
+        credentials: "include"
+    })
+        .then(res => {
+            if (!res.ok) throw new Error("Failed to log in");
+            return res.json();
+        })
+        .then(user => {
+            console.log("Logged in user:", user);
+            showUserHistory();
+        })
+        .catch(err => console.error(err));
+}
+
 
 function createCard(data) {
     if (document.querySelector(`[data-city="${data.cityName}"]`)) return;
 
     const card = document.createElement("div");
-    const weatherClass = getWeatherClass(data.weatherDescription);
-
-    card.className = `weather-card ${weatherClass}`;
+    card.className = `weather-card ${getWeatherClass(data.weatherDescription)}`;
     card.setAttribute("data-city", data.cityName);
     card.draggable = true;
 
@@ -80,14 +143,34 @@ function createCard(data) {
             <div>Wind: ${data.windSpeed} m/s</div>
             <div>${new Date(data.observationTime).toLocaleTimeString()}</div>
         </div>
+
+        <div class="expand-btn">⬇</div>
+        <div class="history"></div>
     `;
 
-    card.addEventListener("mouseenter", () => {
-        app.style.background = getComputedStyle(card).background;
-    });
-    card.addEventListener("mouseleave", () => {
-        app.style.background = "";
-    });
+    const historyDiv = card.querySelector(".history");
+    const expandBtn = card.querySelector(".expand-btn");
+
+    expandBtn.onclick = async () => {
+        if (historyDiv.classList.contains("open")) {
+            historyDiv.classList.remove("open");
+            expandBtn.textContent = "⬇";
+            return;
+        }
+
+        expandBtn.textContent = "⏳";
+        const history = await fetchHistory(data.cityName);
+
+        historyDiv.innerHTML = history.map(h => `
+            <div class="history-item">
+                <span>${new Date(h.observationTime).toLocaleTimeString()}</span>
+                <strong>${Math.round(h.temperatureCelsius)}°C</strong>
+            </div>
+        `).join("");
+
+        historyDiv.classList.add("open");
+        expandBtn.textContent = "⬆";
+    };
 
     card.querySelector(".refresh").onclick = async () => {
         const updated = await fetchPOST(data.cityName);
@@ -96,6 +179,14 @@ function createCard(data) {
     };
 
     card.querySelector(".delete").onclick = () => card.remove();
+
+    card.addEventListener("mouseenter", () => {
+        app.style.background = getComputedStyle(card).background;
+    });
+
+    card.addEventListener("mouseleave", () => {
+        app.style.background = "";
+    });
 
     card.addEventListener("dragstart", () => draggedCard = card);
     card.addEventListener("dragover", e => e.preventDefault());

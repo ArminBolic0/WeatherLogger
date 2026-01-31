@@ -2,21 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Higher Lower Weather Game</title>
     <link rel="stylesheet" href="game.css">
 </head>
 <body>
 
+<a href="../index.html" class="back-arrow">←</a>
+
 <h1>🌡️ Higher or Lower: Weather Game</h1>
 
 <div class="game-container">
-    <div>
+
+    <div class="city-block">
         <div class="city" id="currentCity">Loading...</div>
         <div class="temperature" id="currentTemp">--°C</div>
     </div>
 
-    <input type="text" id="nextCityInput" placeholder="Enter next city (e.g., London)" />
+    <div class="vs">VS</div>
+
+    <div class="city-block">
+        <div class="city" id="nextCity">Loading...</div>
+        <div class="temperature hidden" id="nextTemp">???°C</div>
+    </div>
 
     <div class="guess-buttons">
         <button class="higher" id="higherBtn">Higher</button>

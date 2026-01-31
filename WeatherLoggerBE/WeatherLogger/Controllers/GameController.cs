@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using WeatherLogger.Application.Services;
 using WeatherLogger.Application.DTOs;
+using WeatherLogger.Application.Services;
+using WeatherLogger.Domain.Entities.Log;
+using WeatherLogger.Infrastructure.Persistence;
 
 namespace WeatherLogger.API.Controllers
 {
@@ -9,10 +11,12 @@ namespace WeatherLogger.API.Controllers
     public class GameController : ControllerBase
     {
         private readonly GameService _gameService;
+        private readonly WeatherLoggerDbContext _context;
 
-        public GameController(GameService gameService)
+        public GameController(GameService gameService, WeatherLoggerDbContext context)
         {
             _gameService = gameService;
+            _context = context;
         }
 
         [HttpGet("random")]
@@ -39,6 +43,16 @@ namespace WeatherLogger.API.Controllers
             try
             {
                 var result = await _gameService.CheckGuessAsync(guessDto, cancellationToken);
+                var log = new ApiLog
+                {
+                    Endpoint = HttpContext.Request.Path,
+                    Method = HttpContext.Request.Method,
+                    StatusCode = 200,
+                    RequestBody = null,
+                    ResponseBody = $"Current city: {result.CurrentCity}, Next city: {result.NextCity}"
+                };
+
+                _context.ApiLogs.Add(log);
                 return Ok(result);
             }
             catch (Exception ex)
