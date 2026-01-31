@@ -18,12 +18,9 @@ public class WeatherController : ControllerBase
     }
 
     [HttpGet("{city?}")]
-    public async Task<IActionResult> GetWeather(string? city)
+    public async Task<IActionResult> GetWeather(string? city, CancellationToken cancellationToken)
     {
-        var record = await _context.WeatherRecords
-            .Where(w => w.CityName == (city ?? "Sarajevo"))
-            .OrderByDescending(w => w.ObservationTime)
-            .FirstOrDefaultAsync();
+        var record = await _weatherService.GetCurrentWeather(city, cancellationToken);
 
         if (record == null)
             return NotFound();
@@ -31,11 +28,23 @@ public class WeatherController : ControllerBase
         return Ok(record);
     }
 
+    [HttpGet("history/{city}")]
+    public async Task<IActionResult> GetCityHistory(string city, CancellationToken cancellationToken, int count = 10)
+    {
+        if (string.IsNullOrWhiteSpace(city))
+            return BadRequest("City name is required.");
+
+        var history = await _weatherService.GetCityWeatherHistory(city, count, cancellationToken);
+        if (history == null) return NotFound();
+
+        return Ok(history);
+    }
+
 
     [HttpPost("refresh/{city?}")]
-    public async Task<IActionResult> RefreshWeather(string? city)
+    public async Task<IActionResult> RefreshWeather(string? city, CancellationToken cancellationToken)
     {
-        var record = await _weatherService.GetWeatherAndSaveAsync(city ?? "Sarajevo");
+        var record = await _weatherService.GetWeatherAndSaveAsync(city ?? "Sarajevo", cancellationToken);
 
         var log = new ApiLog
         {

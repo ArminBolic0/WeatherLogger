@@ -8,6 +8,7 @@ namespace WeatherLogger.Application.DependencyInjection
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<WeatherService>();
+            services.AddScoped<GameService>();
 
             return services;
         }

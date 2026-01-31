@@ -1,145 +1,109 @@
+const app = document.getElementById("app");
 const searchBtn = document.getElementById("searchBtn");
 const cityInput = document.getElementById("cityInput");
 const weatherCards = document.getElementById("weatherCards");
-let isCelsius = true;
 
-// Weather icons mapping
-const weatherIcons = {
-    "clear sky": "☀️",
-    "few clouds": "🌤️",
-    "scattered clouds": "🌥️",
-    "broken clouds": "☁️",
-    "shower rain": "🌧️",
-    "rain": "🌦️",
-    "thunderstorm": "⛈️",
-    "snow": "❄️",
-    "mist": "🌫️"
-};
+let draggedCard = null;
 
-// Weather classes for background
-function getWeatherClass(description) {
-    description = description.toLowerCase();
-    if (description.includes("rain") || description.includes("drizzle")) return "weather-rain";
-    if (description.includes("cloud")) return "weather-cloudy";
-    if (description.includes("snow")) return "weather-snow";
-    if (description.includes("thunder")) return "weather-thunderstorm";
-    return "weather-sunny";
+function getWeatherClass(desc = "") {
+    desc = desc.toLowerCase();
+
+    if (desc.includes("sun") || desc.includes("clear")) return "sunny";
+    if (desc.includes("cloud")) return "cloudy";
+    if (desc.includes("rain")) return "rainy";
+    if (desc.includes("snow")) return "snowy";
+    if (desc.includes("storm") || desc.includes("thunder")) return "stormy";
+    return "default";
 }
 
-// Event listeners
-searchBtn.addEventListener("click", () => addCityCard(cityInput.value));
-cityInput.addEventListener("keyup", e => { if (e.key === "Enter") addCityCard(cityInput.value); });
-
-// Toggle °C / °F
-document.getElementById("toggleUnit").addEventListener("click", () => {
-    isCelsius = !isCelsius;
-    document.querySelectorAll(".weather-card").forEach(card => {
-        const tempElem = card.querySelector(".temperature");
-        const temp = parseFloat(tempElem.dataset.tempC);
-        tempElem.textContent = isCelsius
-            ? `${Math.round(temp)}°C ${card.dataset.icon}`
-            : `${Math.round(temp * 9/5 + 32)}°F ${card.dataset.icon}`;
-    });
+searchBtn.addEventListener("click", () => addCity());
+cityInput.addEventListener("keyup", e => {
+    if (e.key === "Enter") addCity();
+});
+document.getElementById("gameBtn").addEventListener("click", () => {
+    window.location.href = "higherLowerGame/game.html";
 });
 
-// Add city card (GET)
-async function addCityCard(cityName) {
-    const city = cityName.trim() || "Sarajevo";
+async function addCity() {
+    const city = cityInput.value.trim();
+    if (!city) return;
 
     try {
-        const data = await fetchWeatherGET(city);
-        createOrUpdateCard(data);
+        let data = await fetchGET(city);
+        createCard(data);
         cityInput.value = "";
-    } catch (err) {
-        alert(err.message);
+    } catch {
+        await fetchPOST(city);
+        const data = await fetchGET(city);
+        createCard(data);
     }
 }
 
-// GET from backend
-async function fetchWeatherGET(city) {
-    const response = await fetch(`https://localhost:7193/api/weather/${city}`);
-    if (!response.ok) {
-        const postData = await fetchWeatherPOST(city);
-        return postData;
-    }
-    return await response.json();
+async function fetchGET(city) {
+    const res = await fetch(`https://localhost:7193/api/weather/${city}`);
+    if (!res.ok) throw new Error();
+    return res.json();
 }
 
-// POST for refresh
-async function fetchWeatherPOST(city) {
-    const response = await fetch(`https://localhost:7193/api/weather/refresh/${city}`, { method: "POST" });
-    if (!response.ok) throw new Error(`Could not refresh weather for ${city}`);
-    return await response.json();
+async function fetchPOST(city) {
+    const res = await fetch(`https://localhost:7193/api/weather/refresh/${city}`, {
+        method: "POST"
+    });
+    if (!res.ok) throw new Error("Refresh failed");
+    return res.json();
 }
 
-// Create or update card
-function createOrUpdateCard(data) {
-    let card = document.querySelector(`.weather-card[data-city="${data.cityName}"]`);
-    const icon = weatherIcons[data.weatherDescription.toLowerCase()] || "🌈";
+function createCard(data) {
+    if (document.querySelector(`[data-city="${data.cityName}"]`)) return;
+
+    const card = document.createElement("div");
     const weatherClass = getWeatherClass(data.weatherDescription);
-
-    if (!card) {
-        card = document.createElement("div");
-        card.classList.add("weather-card", weatherClass);
-        card.setAttribute("data-city", data.cityName);
-        card.dataset.icon = icon;
-
-// Refresh button
-        const refreshBtn = document.createElement("button");
-        refreshBtn.textContent = "🔄";
-        refreshBtn.classList.add("card-refresh-btn");
-        refreshBtn.addEventListener("click", async () => {
-            const updatedData = await fetchWeatherPOST(data.cityName);
-            updateCardContent(card, updatedData);
-        });
-
-// Delete button
-        const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "❌";
-        deleteBtn.classList.add("card-delete-btn");
-        deleteBtn.addEventListener("click", () => card.remove());
-
-// Create a container for buttons
-        const btnContainer = document.createElement("div");
-        btnContainer.classList.add("card-buttons");
-        btnContainer.appendChild(refreshBtn);
-        btnContainer.appendChild(deleteBtn);
-
-// Add the container to the card
-        card.appendChild(btnContainer);
-
-        weatherCards.prepend(card);
-    }
-
-    updateCardContent(card, data);
-}
-
-// Update card
-function updateCardContent(card, data) {
-    const icon = weatherIcons[data.weatherDescription.toLowerCase()] || "🌈";
-    const temp = data.temperatureCelsius;
-    card.dataset.tempC = temp;
-    const displayTemp = isCelsius ? `${Math.round(temp)}°C ${icon}` : `${Math.round(temp * 9/5 + 32)}°F ${icon}`;
-    const weatherClass = getWeatherClass(data.weatherDescription);
-
-    // Preserve buttons
-    const refreshBtn = card.querySelector(".card-refresh-btn");
-    const deleteBtn = card.querySelector(".card-delete-btn");
 
     card.className = `weather-card ${weatherClass}`;
-    card.dataset.city = data.cityName;
-    card.dataset.icon = icon;
+    card.setAttribute("data-city", data.cityName);
+    card.draggable = true;
 
     card.innerHTML = `
-    <h2>${data.cityName}, ${data.countryName}</h2>
-    <div class="temperature" data-tempC="${temp}">${displayTemp}</div>
-    <p>Humidity: ${data.humidity}%</p>
-    <p>Wind: ${data.windSpeed} m/s</p>
-    <p class="description">${data.weatherDescription}</p>
-    <p class="time">Observed at: ${new Date(data.observationTime).toLocaleTimeString()}</p>
-`;
+        <div class="card-header">
+            <h2>${data.cityName}, ${data.countryName}</h2>
+            <div class="card-actions">
+                <button class="refresh">🔄</button>
+                <button class="delete">🗑</button>
+            </div>
+        </div>
 
-    // Re-add buttons
-    card.appendChild(refreshBtn);
-    card.appendChild(deleteBtn);
+        <div class="temperature">${Math.round(data.temperatureCelsius)}°C</div>
+        <div class="description">${data.weatherDescription}</div>
+
+        <div class="meta">
+            <div>Humidity: ${data.humidity}%</div>
+            <div>Wind: ${data.windSpeed} m/s</div>
+            <div>${new Date(data.observationTime).toLocaleTimeString()}</div>
+        </div>
+    `;
+
+    card.addEventListener("mouseenter", () => {
+        app.style.background = getComputedStyle(card).background;
+    });
+    card.addEventListener("mouseleave", () => {
+        app.style.background = "";
+    });
+
+    card.querySelector(".refresh").onclick = async () => {
+        const updated = await fetchPOST(data.cityName);
+        card.remove();
+        createCard(updated);
+    };
+
+    card.querySelector(".delete").onclick = () => card.remove();
+
+    card.addEventListener("dragstart", () => draggedCard = card);
+    card.addEventListener("dragover", e => e.preventDefault());
+    card.addEventListener("drop", () => {
+        if (draggedCard && draggedCard !== card) {
+            weatherCards.insertBefore(draggedCard, card);
+        }
+    });
+
+    weatherCards.prepend(card);
 }
