@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Weather Logger</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body>
+
+    <div class="app" id="app">
+        <header>
+            <h1>🌤 Weather Logger</h1>
+            <p>Track, refresh & compare weather by city</p>
+            <button id="gameBtn" class="game-nav-btn">🎮 Play Higher/Lower Game</button>
+
+            <div class="search">
+                <input id="cityInput" placeholder="Enter city name..." />
+                <button id="searchBtn">Add city</button>
+            </div>
+        </header>
+
+        <div class="cards-wrapper">
+            <div id="weatherCards"></div>
+        </div>
+
+        <div id="userHistory" class="history-container">
+            <h3>Your Checked Cities</h3>
+            <ul id="historyList"></ul>
+        </div>
+
+        <button id="loginBtn" class="google-login-btn">
+            <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google" />
+            Sign in with Google
+        </button>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const loginBtn = document.getElementById("loginBtn");
+                loginBtn.addEventListener("click", () => {
+                    window.location.href = "/auth/login";
+                });
+            });
+        </script>
+
+    </div>
+
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
